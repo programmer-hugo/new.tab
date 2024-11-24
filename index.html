@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows 11 Style Interface</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #000d1a;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><path d="M0,1000 C300,900 700,900 1000,1000 C1000,666 1000,333 1000,0 C666,0 333,0 0,0 C0,333 0,666 0,1000 Z" fill="%230066cc" opacity="0.3"/></svg>');
+            background-size: cover;
+            padding: 2rem;
+        }
+
+        .clock {
+            font-size: 5rem;
+            font-weight: 200;
+            margin-bottom: 2rem;
+        }
+
+        .app-dock {
+            display: flex;
+            gap: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 1rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .app-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 80px;
+            cursor: pointer;
+        }
+
+        .app-icon img {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 0.5rem;
+        }
+
+        .app-icon span {
+            font-size: 0.75rem;
+            color: white;
+        }
+
+        .search-bar {
+            position: fixed;
+            bottom: 5rem;
+            display: flex;
+            align-items: center;
+            background: rgba(23, 23, 23, 0.8);
+            padding: 0.75rem 1.5rem;
+            border-radius: 1.5rem;
+            backdrop-filter: blur(10px);
+            width: 90%;
+            max-width: 600px;
+        }
+
+        .search-bar input {
+            background: transparent;
+            border: none;
+            color: white;
+            width: 100%;
+            padding: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .search-bar input::placeholder {
+            color: #ccc;
+        }
+
+        .customize-button {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 1.5rem;
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+        }
+    .search-button {      
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      background-color: rgba(23, 23, 23, 0.8);
+      color: white;
+      border: none;
+      border-radius: 0 4px 4px 0;
+      cursor: pointer;
+    }
+    .search-button:hover {
+      background-color: rgba(23, 23, 23, 0.8);
+    }
+        .search-input {
+           width: 200px;
+           flex-grow: 1;
+        padding: 0.5rem;
+      font-size: 1rem;
+      border: 2px solid #48bb78;
+      background-color: #4a5568;
+      color: white;
+      border-radius: 4px 0 0 4px;
+    }
+    </style>
+</head>
+<body>
+    <div class="clock" id="clock">HORA</div>
+
+    <div class="app-dock">
+        <div class="app-icon">
+            <img src="https://raw.githubusercontent.com/programmer-hugo/search-motor/refs/heads/main/descarga.png" alt="Añadir sitio">
+            <span>Añadir sitio</span>
+        </div>
+    </div>
+
+    <div class="search-bar">
+       <input type="text" id="query" class="search-input" placeholder="Escribe tu búsqueda..." required>
+      <button type="submit" class="search-button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </button>
+    </div>
+
+    <select id="searchEngine" class="customize-button">
+      <option value="google">Google</option>
+      <option value="bing">Bing</option>
+      <option value="yahoo">Yahoo!</option>
+      <option value="baidu">Baidu</option>
+      <option value="duckduckgo">DuckDuckGo</option>
+      <option value="yandex">Yandex</option>
+      <option value="ask">Ask</option>
+      <option value="quora">Quora</option>
+    </select>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            document.getElementById('clock').textContent = `${hours}:${minutes}`;
+        }
+
+        updateClock();
+        setInterval(updateClock, 60000);
+
+        // Función para añadir un nuevo sitio
+        function addSite() {
+            const siteName = prompt("Introduce el nombre del sitio:");
+            const siteUrl = prompt("Introduce la URL del sitio:");
+            if (siteName && siteUrl) {
+                const appDock = document.querySelector('.app-dock');
+                
+                // Crear un nuevo icono de sitio
+                const newAppIcon = document.createElement('div');
+                newAppIcon.classList.add('app-icon');
+                
+                // Crear imagen
+                const newImg = document.createElement('img');
+                newImg.src = "/placeholder.svg?height=48&width=48"; // Icono por defecto
+                newImg.alt = siteName;
+                
+                // Crear texto del sitio
+                const newSpan = document.createElement('span');
+                newSpan.textContent = siteName;
+
+                // Añadir elementos al nuevo icono
+                newAppIcon.appendChild(newImg);
+                newAppIcon.appendChild(newSpan);
+                
+                // Añadir el icono al dock
+                appDock.appendChild(newAppIcon);
+
+                // Hacer clic en el icono para abrir el sitio
+                newAppIcon.addEventListener('click', () => {
+                    window.open(siteUrl, '_blank');
+                });
+            }
+        }
+
+        // Asignar la funcionalidad al botón de "Añadir Sitio"
+        document.querySelector('.app-icon:last-child').addEventListener('click', addSite);
+    </script>
+</body>
+</html>
