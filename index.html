@@ -121,7 +121,18 @@
 </head>
 <body>
     <div class="clock" id="clock">HORA</div>
+        <script>
+            function updateClock() {
+                const now = new Date();
+                const hours = String(now.getHours()).padStart(2, '0');
+                const minutes = String(now.getMinutes()).padStart(2, '0');
+                document.getElementById('clock').textContent = `${hours}:${minutes}`;
+            }
 
+            updateClock();
+            setInterval(updateClock, 60000);
+    </script>
+  
     <div class="app-dock">
         <div class="app-icon">
             <img src="https://raw.githubusercontent.com/programmer-hugo/search-motor/refs/heads/main/descarga.png" alt="Añadir sitio">
@@ -151,16 +162,6 @@
     </select>
 
     <script>
-        function updateClock() {
-            const now = new Date();
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            document.getElementById('clock').textContent = `${hours}:${minutes}`;
-        }
-
-        updateClock();
-        setInterval(updateClock, 60000);
-
         // Función para añadir un nuevo sitio
         function addSite() {
             const siteName = prompt("Introduce el nombre del sitio:");
