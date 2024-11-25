@@ -123,17 +123,17 @@
     <div class="clock" id="clock">
         HORA
     </div>
-        <script>
-            function updateClock() {
-                const now = new Date();
-                const hours = String(now.getHours()).padStart(2, '0');
-                const minutes = String(now.getMinutes()).padStart(2, '0');
-                document.getElementById('clock').textContent = `${hours}:${minutes}`;
-            }
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            document.getElementById('clock').textContent = `${hours}:${minutes}`;
+        }
 
-            updateClock();
-            setInterval(updateClock, 60000);
-        </script>
+        updateClock();
+        setInterval(updateClock, 60000);
+    </script>
   
     <div class="app-dock">
         <!-- Aquí se cargarán los sitios y el botón de Añadir -->
@@ -161,7 +161,6 @@
     </select>
 
     <script>
-        // LocalStorage key para guardar los sitios
         const STORAGE_KEY = 'addedSites';
 
         // Cargar sitios desde LocalStorage
@@ -174,6 +173,13 @@
         function saveSite(name, url) {
             const savedSites = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
             savedSites.push({ name, url });
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(savedSites));
+        }
+
+        // Eliminar un sitio de LocalStorage
+        function deleteSite(name) {
+            let savedSites = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+            savedSites = savedSites.filter(site => site.name !== name);
             localStorage.setItem(STORAGE_KEY, JSON.stringify(savedSites));
         }
 
@@ -202,9 +208,19 @@
             // Insertar el nuevo icono antes del botón "Añadir Sitio"
             appDock.insertBefore(newAppIcon, addButton);
 
-            // Hacer clic en el icono para abrir el sitio
+            // Evento para abrir el sitio al hacer clic
             newAppIcon.addEventListener('click', () => {
                 window.open(url, '_blank');
+            });
+
+            // Evento para eliminar el sitio al hacer clic derecho
+            newAppIcon.addEventListener('contextmenu', (e) => {
+                e.preventDefault(); // Prevenir menú contextual predeterminado
+                const confirmDelete = confirm(`¿Deseas eliminar el sitio "${name}"?`);
+                if (confirmDelete) {
+                    newAppIcon.remove(); // Eliminar del DOM
+                    deleteSite(name); // Eliminar del LocalStorage
+                }
             });
         }
 
