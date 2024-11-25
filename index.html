@@ -120,7 +120,9 @@
     </style>
 </head>
 <body>
-    <div class="clock" id="clock">HORA</div>
+    <div class="clock" id="clock">
+        HORA
+    </div>
         <script>
             function updateClock() {
                 const now = new Date();
@@ -131,13 +133,10 @@
 
             updateClock();
             setInterval(updateClock, 60000);
-    </script>
+        </script>
   
     <div class="app-dock">
-        <div class="app-icon">
-            <img src="https://raw.githubusercontent.com/programmer-hugo/search-motor/refs/heads/main/descarga.png" alt="Añadir sitio">
-            <span>Añadir sitio</span>
-        </div>
+        <!-- Aquí se cargarán los sitios y el botón de Añadir -->
     </div>
 
     <div class="search-bar">
@@ -162,42 +161,91 @@
     </select>
 
     <script>
+        // LocalStorage key para guardar los sitios
+        const STORAGE_KEY = 'addedSites';
+
+        // Cargar sitios desde LocalStorage
+        function loadSites() {
+            const savedSites = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+            savedSites.forEach(site => renderSite(site.name, site.url));
+        }
+
+        // Guardar sitios en LocalStorage
+        function saveSite(name, url) {
+            const savedSites = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+            savedSites.push({ name, url });
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(savedSites));
+        }
+
+        // Renderizar un sitio en el dock
+        function renderSite(name, url) {
+            const appDock = document.querySelector('.app-dock');
+            const addButton = document.querySelector('.app-icon:last-child');
+
+            // Crear un nuevo icono de sitio
+            const newAppIcon = document.createElement('div');
+            newAppIcon.classList.add('app-icon');
+
+            // Crear imagen
+            const newImg = document.createElement('img');
+            newImg.src = "https://via.placeholder.com/48"; // Icono por defecto
+            newImg.alt = name;
+
+            // Crear texto del sitio
+            const newSpan = document.createElement('span');
+            newSpan.textContent = name;
+
+            // Añadir elementos al nuevo icono
+            newAppIcon.appendChild(newImg);
+            newAppIcon.appendChild(newSpan);
+
+            // Insertar el nuevo icono antes del botón "Añadir Sitio"
+            appDock.insertBefore(newAppIcon, addButton);
+
+            // Hacer clic en el icono para abrir el sitio
+            newAppIcon.addEventListener('click', () => {
+                window.open(url, '_blank');
+            });
+        }
+
         // Función para añadir un nuevo sitio
         function addSite() {
             const siteName = prompt("Introduce el nombre del sitio:");
             const siteUrl = prompt("Introduce la URL del sitio:");
             if (siteName && siteUrl) {
-                const appDock = document.querySelector('.app-dock');
-                
-                // Crear un nuevo icono de sitio
-                const newAppIcon = document.createElement('div');
-                newAppIcon.classList.add('app-icon');
-                
-                // Crear imagen
-                const newImg = document.createElement('img');
-                newImg.src = "/placeholder.svg?height=48&width=48"; // Icono por defecto
-                newImg.alt = siteName;
-                
-                // Crear texto del sitio
-                const newSpan = document.createElement('span');
-                newSpan.textContent = siteName;
-
-                // Añadir elementos al nuevo icono
-                newAppIcon.appendChild(newImg);
-                newAppIcon.appendChild(newSpan);
-                
-                // Añadir el icono al dock
-                appDock.appendChild(newAppIcon);
-
-                // Hacer clic en el icono para abrir el sitio
-                newAppIcon.addEventListener('click', () => {
-                    window.open(siteUrl, '_blank');
-                });
+                renderSite(siteName, siteUrl); // Renderizar el sitio en el dock
+                saveSite(siteName, siteUrl); // Guardar el sitio en LocalStorage
             }
         }
 
-        // Asignar la funcionalidad al botón de "Añadir Sitio"
-        document.querySelector('.app-icon:last-child').addEventListener('click', addSite);
+        // Crear el botón "Añadir Sitio"
+        function createAddButton() {
+            const appDock = document.querySelector('.app-dock');
+            const addButton = document.createElement('div');
+            addButton.classList.add('app-icon');
+
+            const addImg = document.createElement('img');
+            addImg.src = "https://raw.githubusercontent.com/programmer-hugo/search-motor/refs/heads/main/descarga.png";
+            addImg.alt = "Añadir sitio";
+
+            const addSpan = document.createElement('span');
+            addSpan.textContent = "Añadir sitio";
+
+            addButton.appendChild(addImg);
+            addButton.appendChild(addSpan);
+            appDock.appendChild(addButton);
+
+            // Asignar funcionalidad al botón
+            addButton.addEventListener('click', addSite);
+        }
+
+        // Inicializar la página
+        function init() {
+            loadSites(); // Cargar sitios desde LocalStorage
+            createAddButton(); // Crear el botón "Añadir Sitio"
+        }
+
+        init();
     </script>
 </body>
 </html>
