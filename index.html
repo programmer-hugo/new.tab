@@ -195,8 +195,8 @@
 </head>
 
 <body>
-  <div class="clock" id="clock">
-    HORA
+  <div class="clock" id="clock" title="HORA">
+    <!-- Aquí se mostrará la hora -->
   </div>
   <script>
     function updateClock() {
@@ -230,13 +230,16 @@
   </div>
 
   <select id="searchEngine" class="search-motor-button">
+    <option disabled>Buscadores Oficiales</option>
     <option value="google">Google</option>
-    <option value="googleacademy">Google Academy</option>
     <option value="bing">Bing</option>
     <option value="yahoo">Yahoo!</option>
-    <option value="baidu">Baidu</option>
-    <option value="duckduckgo">DuckDuckGo</option>
     <option value="yandex">Yandex</option>
+    <option value="duckduckgo">DuckDuckGo</option>
+    <option disabled>Buscadores Académicos</option>
+    <option value="googleacademy">Google Academy</option>
+    <option disabled>Otros</option>
+    <option value="baidu">Baidu</option>
     <option value="ask">Ask</option>
     <option value="quora">Quora</option>
   </select>
@@ -266,26 +269,29 @@
 
       // Determinar la URL de búsqueda según el motor seleccionado
       switch (searchEngine) {
+        // Buscadores Oficiales
         case 'google':
           searchUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
           break;
         case 'bing':
           searchUrl = `https://www.bing.com/search?q=${encodeURIComponent(query)}`;
           break;
-        case 'googleacademy':
-          searchUrl = `https://scholar.google.es/scholar?q=${encodeURIComponent(query)}`;
-          break;
         case 'yahoo':
           searchUrl = `https://search.yahoo.com/search?p=${encodeURIComponent(query)}`;
           break;
-        case 'baidu':
-          searchUrl = `https://www.baidu.com/s?wd=${encodeURIComponent(query)}`;
+        case 'yandex':
+          searchUrl = `https://yandex.com/search/?text=${encodeURIComponent(query)}`;
           break;
         case 'duckduckgo':
           searchUrl = `https://duckduckgo.com/?q=${encodeURIComponent(query)}`;
           break;
-        case 'yandex':
-          searchUrl = `https://yandex.com/search/?text=${encodeURIComponent(query)}`;
+        // Buscadores Académicos
+        case 'googleacademy':
+          searchUrl = `https://scholar.google.es/scholar?q=${encodeURIComponent(query)}`;
+          break;
+        // Otros
+        case 'baidu':
+          searchUrl = `https://www.baidu.com/s?wd=${encodeURIComponent(query)}`;
           break;
         case 'ask':
           searchUrl = `https://www.ask.com/web?q=${encodeURIComponent(query)}`;
@@ -497,6 +503,6 @@
   </script>
   <!-- Formato de versión V<N° 1-9>.<N°1-99>.<Año> -->
   <!-- Format version V<N° 1-9>.<N°1-99>.<Year> -->
-                 <!-- V1.10.2024 -->
+                 <!-- V1.11.2024 -->
 </body>
 </html>
