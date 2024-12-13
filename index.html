@@ -20,10 +20,16 @@
       flex-direction: column;
       align-items: center;
       background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><path d="M0,1000 C300,900 700,900 1000,1000 C1000,666 1000,333 1000,0 C666,0 333,0 0,0 C0,333 0,666 0,1000 Z" fill="%230066cc" opacity="0.3"/></svg>');
-      background-size: cover;          /* Ajusta la imagen para cubrir todo el contenedor */
-      background-position: center;     /* Centra la imagen tanto horizontal como verticalmente */
-      background-repeat: no-repeat;    /* Evita que la imagen se repita */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
       padding: 2rem;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    body.dark-theme {
+      background-color: #333;
+      color: #fff;
     }
 
     .clock {
@@ -59,7 +65,7 @@
 
     .app-icon span {
       font-size: 0.75rem;
-      color: black;
+      color: inherit;
     }
 
     .search-bar {
@@ -99,6 +105,7 @@
       cursor: pointer;
       border: none;
       font-size: 1rem;
+      color: inherit;
     }
     .search-motor-button:hover {
       background: rgba(255, 255, 255, 0.3);
@@ -128,33 +135,18 @@
       color: white;
       border-radius: 4px 0 0 4px;
     }
-    .change-bh-button {
-      position: fixed;
-      bottom: 2rem;
-      left: 2rem;
-      background: rgba(255, 255, 255, 0.1);
-      padding: 0.5rem 1rem;
-      border-radius: 1.5rem;
-      backdrop-filter: blur(10px);
-      cursor: pointer;
-      border: none;
-      font-size: 1rem;
-    }
-    .change-bh-button:hover {
-      background: rgba(255, 255, 255, 0.3);
-    }
     .controls {
       position: fixed;
       bottom: 5rem;
       left: 2rem;
-      display: none; /* Oculto por defecto */
+      display: none;
       flex-direction: column;
       align-items: flex-start;
       gap: 0.5rem;
-      background: rgba(23, 23, 23);
+      background: rgba(23, 23, 23, 0.8);
       padding: 1rem;
       border-radius: 1.5rem;
-      box-shadow: 0 4px 10px rgba(0, 0, 0);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
 
     .color-input {
@@ -162,7 +154,7 @@
       border: none;
       border-radius: 1.5rem;
       padding: 0.5rem;
-      color: rgba(23, 23, 23);
+      color: inherit;
       font-size: 1rem;
       cursor: pointer;
     }
@@ -174,6 +166,7 @@
       padding: 0.5rem 1rem;
       font-size: 1rem;
       cursor: pointer;
+      color: inherit;
     }
 
     .apply-button:hover {
@@ -183,13 +176,115 @@
     .requisits {
       font-size: 1rem;
       cursor: url('https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTGZRMzHuDpYmqbJhI_woZ5Ps2JZTYddatGItIRwrtO7wz8tvL4'), default;
-      color: white;
+      color: inherit;
     }
-    
+    .change-bh-button {
+      position: fixed;
+      bottom: 2rem;
+      left: 2rem;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 0.5rem 1rem;
+      border-radius: 1.5rem;
+      backdrop-filter: blur(10px);
+      cursor: pointer;
+      border: none;
+      font-size: 1rem;
+      color: inherit;
+    }
+    .change-bh-button:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+    #searchEngine {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 0.5rem 1rem;
+      border-radius: 1.5rem;
+      backdrop-filter: blur(10px);
+      cursor: pointer;
+      border: none;
+      font-size: 1rem;
+      color: inherit;
+    }
+
+    #searchEngine:focus {
+      border-color: #007BFF;
+      outline: none;
+      box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+    }
+
+    #searchEngine option {
+      color: inherit;
+      font-size: 14px;
+      padding: 5px;
+      background-color: rgba(23, 23, 23, 0.8);
+    }
+
+    #searchEngine option[disabled] {
+      color: #b5b5b5;
+      font-weight: bold;
+      background-color: rgba(64, 64, 64, 0.8);
+      cursor: not-allowed;
+    }
+
+    #searchEngine:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
     @media (max-width: 768px) {
         .change-bg-button {
             display: none;
         }
+    }
+
+    /* Estilos para el selector de temas */
+    .theme-switcher {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+    }
+
+    .theme-button {
+      background-color: rgba(255, 255, 255, 0.1);
+      border: none;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      border-radius: 1.5rem;
+      backdrop-filter: blur(10px);
+      font-size: 1rem;
+      color: inherit;
+    }
+
+    .theme-options {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 100%;
+      background-color: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 0.5rem;
+      overflow: hidden;
+      margin-top: 0.5rem;
+    }
+
+    .theme-options button {
+      display: block;
+      width: 100%;
+      padding: 0.5rem 1rem;
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
+      color: inherit;
+      text-align: left;
+    }
+
+    .theme-options button:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .show {
+      display: block;
     }
   </style>
 </head>
@@ -198,22 +293,6 @@
   <div class="clock" id="clock" title="HORA">
     <!-- Aquí se mostrará la hora -->
   </div>
-  <script>
-    function updateClock() {
-      const now = new Date();
-      let hours = now.getHours();
-      const minutes = String(now.getMinutes()).padStart(2, '0');
-      
-      // Convertir las horas al formato de 12 horas
-      const period = hours >= 12 ? '' : '';
-      hours = hours % 12 || 12; // Si las horas son 0 (medianoche), cambia a 12.
-      
-      document.getElementById('clock').textContent = `${String(hours).padStart(2, '0')}:${minutes} ${period}`;
-    }
-    
-    updateClock();
-    setInterval(updateClock, 60000);
-  </script>  
 
   <div class="app-dock">
     <!-- Aquí se cargarán los sitios y el botón de Añadir -->
@@ -255,21 +334,45 @@
     <input type="file" id="backgroundImageInput" accept="image/*" style="display: none;">
     <button class="apply-button" id="uploadImageButton">Subir Imagen</button>
   </div>
+
+  <!-- Selector de temas -->
+  <div class="theme-switcher">
+    <button class="theme-button" onclick="toggleThemeOptions()">Tema: <span id="current-theme">🖥️</span></button>
+    <div id="theme-options" class="theme-options">
+      <button onclick="setTheme('system')">🖥️</button>
+      <button onclick="setTheme('light')">☀️</button>
+      <button onclick="setTheme('dark')">🌙</button>
+    </div>
+  </div>
     
-  <!-- Función de buscar -->
+  <!-- Scripts -->
   <script>
-    // Función para realizar la búsqueda
+    // Función de actualizar el reloj
+    function updateClock() {
+      const now = new Date();
+      let hours = now.getHours();
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      
+      // Convertir las horas al formato de 12 horas
+      const period = hours >= 12 ? '' : '';
+      hours = hours % 12 || 12; // Si las horas son 0 (medianoche), cambia a 12.
+      
+      document.getElementById('clock').textContent = `${String(hours).padStart(2, '0')}:${minutes} ${period}`;
+    }
+    
+    updateClock();
+    setInterval(updateClock, 60000);
+
+    // Función de búsqueda
     function performSearch() {
-      const query = document.getElementById('query').value; // Obtener la consulta de búsqueda
-      const searchEngine = document.getElementById('searchEngine').value; // Obtener motor de búsqueda seleccionado
+      const query = document.getElementById('query').value;
+      const searchEngine = document.getElementById('searchEngine').value;
   
-      if (!query) return; // Si no hay consulta, no hacer nada
+      if (!query) return;
 
       let searchUrl = '';
 
-      // Determinar la URL de búsqueda según el motor seleccionado
       switch (searchEngine) {
-        // Buscadores Oficiales
         case 'google':
           searchUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
           break;
@@ -285,11 +388,9 @@
         case 'duckduckgo':
           searchUrl = `https://duckduckgo.com/?q=${encodeURIComponent(query)}`;
           break;
-        // Buscadores Académicos
         case 'googleacademy':
           searchUrl = `https://scholar.google.es/scholar?q=${encodeURIComponent(query)}`;
           break;
-        // Otros
         case 'baidu':
           searchUrl = `https://www.baidu.com/s?wd=${encodeURIComponent(query)}`;
           break;
@@ -300,96 +401,80 @@
           searchUrl = `https://www.quora.com/search?q=${encodeURIComponent(query)}`;
           break;
         default:
-          searchUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`; // Predeterminado Google
+          searchUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
           break;
       }
 
-      // Redirigir al motor de búsqueda con la consulta
       window.location.href = searchUrl;
     }
 
-    // Asignar evento al botón de búsqueda para redirigir
     document.querySelector('.search-button').addEventListener('click', function(event) {
-      event.preventDefault(); // Prevenir comportamiento por defecto
-      performSearch(); // Realizar la búsqueda
+      event.preventDefault();
+      performSearch();
     });
 
-    // Asignar evento al campo de texto para realizar búsqueda con Enter
     document.getElementById('query').addEventListener('keypress', function(event) {
       if (event.key === 'Enter') {
-        event.preventDefault(); // Prevenir la acción por defecto
-        performSearch(); // Realizar la búsqueda
+        event.preventDefault();
+        performSearch();
       }
     });
 
-  </script>
-
-  <!-- Añadir Sitios -->
-  <script>
+    // Añadir Sitios
     const STORAGE_KEY = 'addedSites';
-    // Cargar sitios desde LocalStorage
+
     function loadSites() {
       const savedSites = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
       savedSites.forEach(site => renderSite(site.name, site.url));
     }
-    // Guardar sitios en LocalStorage
+
     function saveSite(name, url) {
       const savedSites = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-      savedSites.push({
-        name,
-        url
-      });
+      savedSites.push({ name, url });
       localStorage.setItem(STORAGE_KEY, JSON.stringify(savedSites));
     }
-    // Eliminar un sitio de LocalStorage
+
     function deleteSite(name) {
       let savedSites = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
       savedSites = savedSites.filter(site => site.name !== name);
       localStorage.setItem(STORAGE_KEY, JSON.stringify(savedSites));
     }
-    // Renderizar un sitio en el dock
+
     function renderSite(name, url) {
       const appDock = document.querySelector('.app-dock');
       const addButton = document.querySelector('.app-icon:last-child');
-      // Crear un nuevo icono de sitio
       const newAppIcon = document.createElement('div');
       newAppIcon.classList.add('app-icon');
-      // Crear imagen
       const newImg = document.createElement('img');
-      newImg.src = "https://via.placeholder.com/48"; // Icono por defecto
+      newImg.src = "https://via.placeholder.com/48";
       newImg.alt = name;
-      // Crear texto del sitio
       const newSpan = document.createElement('span');
       newSpan.textContent = name;
-      // Añadir elementos al nuevo icono
       newAppIcon.appendChild(newImg);
       newAppIcon.appendChild(newSpan);
-      // Insertar el nuevo icono antes del botón "Añadir Sitio"
       appDock.insertBefore(newAppIcon, addButton);
-      // Evento para abrir el sitio al hacer clic
       newAppIcon.addEventListener('click', () => {
         window.open(url, '_blank');
       });
-      // Evento para eliminar el sitio al hacer clic derecho
       newAppIcon.addEventListener('contextmenu', (e) => {
-        e.preventDefault(); // Prevenir menú contextual predeterminado
+        e.preventDefault();
         const confirmDelete = confirm(`¿Deseas eliminar el sitio "${name}"?`);
         if (confirmDelete) {
-          newAppIcon.remove(); // Eliminar del DOM
-          deleteSite(name); // Eliminar del LocalStorage
+          newAppIcon.remove();
+          deleteSite(name);
         }
       });
     }
-    // Función para añadir un nuevo sitio
+
     function addSite() {
       const siteName = prompt("Introduce el nombre del sitio:");
       const siteUrl = prompt("Introduce la URL del sitio:");
       if (siteName && siteUrl) {
-        renderSite(siteName, siteUrl); // Renderizar el sitio en el dock
-        saveSite(siteName, siteUrl); // Guardar el sitio en LocalStorage
+        renderSite(siteName, siteUrl);
+        saveSite(siteName, siteUrl);
       }
     }
-    // Crear el botón "Añadir Sitio"
+
     function createAddButton() {
       const appDock = document.querySelector('.app-dock');
       const addButton = document.createElement('div');
@@ -402,27 +487,20 @@
       addButton.appendChild(addImg);
       addButton.appendChild(addSpan);
       appDock.appendChild(addButton);
-      // Asignar funcionalidad al botón
       addButton.addEventListener('click', addSite);
     }
     
-    // Inicializar la página
     function init() {
-      loadSites(); // Cargar sitios desde LocalStorage
-      createAddButton(); // Crear el botón "Añadir Sitio"
+      loadSites();
+      createAddButton();
     }
     init();
-  </script>
-  
-  <!-- Guardar imagen -->
-  <script>
-    const IMAGE_STORAGE_KEY = 'backgroundImage'; // Clave para guardar la imagen de fondo
 
-    // Elementos del DOM
+    // Guardar imagen
+    const IMAGE_STORAGE_KEY = 'backgroundImage';
     const uploadImageButton = document.getElementById('uploadImageButton');
     const backgroundImageInput = document.getElementById('backgroundImageInput');
 
-    // Cargar imagen de fondo guardada
     function loadSavedImage() {
       const savedImage = localStorage.getItem(IMAGE_STORAGE_KEY);
       if (savedImage) {
@@ -430,79 +508,133 @@
       }
     }
 
-    // Guardar imagen de fondo en localStorage
     function saveImage(imageData) {
       localStorage.setItem(IMAGE_STORAGE_KEY, imageData);
     }
 
-    // Configurar fondo con la imagen seleccionada
     backgroundImageInput.addEventListener('change', (event) => {
       const file = event.target.files[0];
       if (file) {
         const reader = new FileReader();
         reader.onload = (e) => {
-          const imageData = e.target.result; // Datos de la imagen en Base64
-          document.body.style.backgroundImage = `url('${imageData}')`; // Cambiar el fondo
-          saveImage(imageData); // Guardar la imagen
+          const imageData = e.target.result;
+          document.body.style.backgroundImage = `url('${imageData}')`;
+          saveImage(imageData);
         };
-        reader.readAsDataURL(file); // Leer el archivo como Base64
+        reader.readAsDataURL(file);
       }
     });
 
-    // Mostrar el selector de archivo al hacer clic en el botón
     uploadImageButton.addEventListener('click', () => {
       backgroundImageInput.click();
     });
 
-    // Inicializar
     loadSavedImage();
-  </script>
 
-  <!-- Guardar colores -->
-  <script>
-    // Obtener elementos
+    // Guardar colores
     const toggleControlsButton = document.getElementById('toggleControlsButton');
     const controls = document.getElementById('controls');
     const colorPicker = document.getElementById('colorPicker');
     const applyColorButton = document.getElementById('applyColorButton');
 
-    const COLOR_STORAGE_KEY = 'backgroundColor'; // Clave para guardar el color
+    const COLOR_STORAGE_KEY = 'backgroundColor';
 
-    // Cargar color guardado
     function loadSavedColor() {
       const savedColor = localStorage.getItem(COLOR_STORAGE_KEY);
       if (savedColor) {
-        document.body.style.background = savedColor; // Aplicar el color guardado
-        colorPicker.value = savedColor; // Actualizar el selector con el color guardado
+        document.body.style.background = savedColor;
+        colorPicker.value = savedColor;
       }
     }
 
-    // Guardar color en localStorage
     function saveColor(color) {
       localStorage.setItem(COLOR_STORAGE_KEY, color);
     }
 
-    // Alternar visibilidad de los controles
     toggleControlsButton.addEventListener('click', () => {
       if (controls.style.display === 'none' || controls.style.display === '') {
-        controls.style.display = 'flex'; // Mostrar controles
+        controls.style.display = 'flex';
       } else {
-        controls.style.display = 'none'; // Ocultar controles
+        controls.style.display = 'none';
       }
     });
 
-    // Cambiar el fondo con el color seleccionado
     applyColorButton.addEventListener('click', () => {
-      const selectedColor = colorPicker.value; // Obtener el color en formato HEX
-      document.body.style.background = selectedColor; // Cambiar el fondo
-      saveColor(selectedColor); // Guardar el color en localStorage
+      const selectedColor = colorPicker.value;
+      document.body.style.background = selectedColor;
+      saveColor(selectedColor);
     });
 
-    // Inicializar
     loadSavedColor();
+
+    // Selector de temas
+    function toggleThemeOptions() {
+      document.getElementById("theme-options").classList.toggle("show");
+    }
+
+    function setTheme(theme) {
+      localStorage.setItem('theme', theme);
+      applyTheme(theme);
+      document.getElementById("current-theme").textContent = getThemeText(theme);
+      toggleThemeOptions();
+    }
+
+    function applyTheme(theme) {
+      if (theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.body.classList.add('dark-theme');
+      } else {
+        document.body.classList.remove('dark-theme');
+      }
+      // Actualizar el color del icono "Añadir sitio"
+      const addSiteIcon = document.querySelector('.app-icon:last-child');
+      if (addSiteIcon) {
+        addSiteIcon.style.color = theme === 'dark' ? 'white' : 'black';
+      }
+
+      // Actualizar el color del texto "Configurar fondo"
+      const configButton = document.getElementById('toggleControlsButton');
+      if (configButton) {
+        configButton.style.color = theme === 'dark' ? 'white' : 'black';
+      }
+
+      // Actualizar el color del "Search Engine"
+      const searchEngine = document.getElementById('searchEngine');
+      if (searchEngine) {
+        searchEngine.style.color = theme === 'dark' ? 'white' : 'black';
+      }
+    }
+
+    function getThemeText(theme) {
+      switch(theme) {
+        case 'light': return '☀️';
+        case 'dark': return '🌙';
+        default: return '🖥️';
+      }
+    }
+
+    const savedTheme = localStorage.getItem('theme') || 'system';
+    setTheme(savedTheme);
+
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(() => {
+      if (localStorage.getItem('theme') === 'system') {
+        applyTheme('system');
+      }
+    });
+
+    window.onclick = function(event) {
+      if (!event.target.matches('.theme-button')) {
+        var dropdowns = document.getElementsByClassName("theme-options");
+        for (var i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+          }
+        }
+      }
+    }
   </script>
   <!-- Formato de versión V<N° 1-9>.<N°1-99>.<Año> -->
   <!-- Format version V<N° 1-9>.<N°1-99>.<Year> -->
-                 <!-- V1.11.2024 -->
+                 <!-- V1.12.2024 -->
 </body>
 </html>
